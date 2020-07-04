@@ -12,3 +12,7 @@ let url = 'https://api.spoonacular.com/recipes/search?query=cheese&number=2&apiK
         console.log(data.results[0].title);
         console.log(data);
     });
+
+    let apiKey2 = 'ab404a5992779eeb44786e20b8012874'
+
+    var url_zomato = 'https://www.zomato.com/search?&apiKey2=ab404a5992779eeb44786e20b8012874'

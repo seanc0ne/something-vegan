@@ -79,25 +79,25 @@ ingredientSearchBtn.addEventListener('click', function() {
   showCocktails(ingredientSearchText.value);
 });
 
-Prerequisite:
-- Edit 'style.css' and add a new class called 'recipe-card':
-.recipe-card {
-  max-width: 18rem;
+// Prerequisite:
+// - Edit 'style.css' and add a new class called 'recipe-card':
+// .recipe-card {
+//   max-width: 18rem;
+// }
+// .recipe-image {
+//   max-width: 200px;
+// }
+// .recipe-link {
+// }
+// .recipe-url {
+// }
+// .recipe-text {
 }
-.recipe-image {
-  max-width: 200px;
-}
-.recipe-link {
-}
-.recipe-url {
-}
-.recipe-text {
-}
-1. Modify index.html and DELETE everything inside the "searchResults" div so that it only looks like this:
-<div class="row" id="searchResults"></div>
-2. In your script.js, you're going to declare a variable that references this 'searchResults' div:
-  var searchResultsDiv = document.querySelector('#searchResults');
-3. In showRecipes() function, we are going to build a card for each recipe dynamically.
+//1. Modify index.html and DELETE everything inside the "searchResults" div so that it only looks like this:
+//<div class="row" id="searchResults"></div>
+//2. In your script.js, you're going to declare a variable that references this 'searchResults' div:
+//  var searchResultsDiv = document.querySelector('#searchResults');
+//3. In showRecipes() function, we are going to build a card for each recipe dynamically.
 // <div class="card text-white bg-primary mb-3 recipe-card">
 //   <div class="card-body">
 //     <h5 class="card-title">Primary card title</h5>

@@ -92,7 +92,7 @@ ingredientSearchBtn.addEventListener('click', function() {
 // .recipe-url {
 // }
 // .recipe-text {
-}
+//}
 //1. Modify index.html and DELETE everything inside the "searchResults" div so that it only looks like this:
 //<div class="row" id="searchResults"></div>
 //2. In your script.js, you're going to declare a variable that references this 'searchResults' div:
@@ -156,7 +156,7 @@ async function showRecipes(searchText) {
     recipeText.textContent = " to see recipe";
     // Are we done?  Nope, not so fast.  It's time
     // to re-unite the children with their parents
-    recipeLink.appendChild((recipeURL); 
+    recipeLink.appendChild(recipeURL); 
     // After running the statement above, recipeLink now looks like this                 
 //     <div class="recipe-link">
 //        <a href="whatever" class="recipe-url">Click here</a> 

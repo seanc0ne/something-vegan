@@ -14,7 +14,7 @@ const API_KEY = "ed7605a56f0f435ab0d285c4b6650cf0 ";
 var recipes = [];
 var cocktails = [];
 var recipeSearchBtn = document.querySelector('.recipe-search-btn');
-var ingredientSearchBtn = document.querySelector('.ingredient-search-btn');
+var cocktailSearchBtn = document.querySelector('.cocktail-search-btn');
 
 
 async function getRecipesByKeyword(searchText) {
@@ -67,16 +67,18 @@ async function showCocktails(ingredientName) {
     //   return <THE RESULTS>;
 
 // Attach click event handlers for the GO buttons
-recipeSearchBtn.addEventListener('click', function() {
+recipeSearchBtn.addEventListener('click', function(event) {
   var recipeSearchText = document.querySelector('.recipe-search-input');
 
   showRecipes(recipeSearchText.value);
+    event.preventDefault();
 });
 
-ingredientSearchBtn.addEventListener('click', function() {
-  var ingredientSearchText = document.querySelector('.ingredient-search-input');
+cocktailSearchBtn.addEventListener('click', function(event) {
+  var ingredientSearchText = document.querySelector('.cocktail-search-input');
   
   showCocktails(ingredientSearchText.value);
+    event.preventDefault();
 });
 
 // Prerequisite:

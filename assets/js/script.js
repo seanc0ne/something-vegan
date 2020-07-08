@@ -14,7 +14,7 @@ const API_KEY = "ed7605a56f0f435ab0d285c4b6650cf0 ";
 var recipes = [];
 var cocktails = [];
 var recipeSearchBtn = document.querySelector('.recipe-search-btn');
-var ingredientSearchBtn = document.querySelector('.ingredient-search-btn');
+var cocktailSearchBtn = document.querySelector('.cocktail-search-btn');
 
 
 async function getRecipesByKeyword(searchText) {
@@ -59,6 +59,15 @@ async function showCocktails(ingredientName) {
     console.log(cocktails);
 }
 
+function saveAndDisplayHistory(searchTerm) {
+  // save to localStorage
+  let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+  searchHistory.push(searchTerm);
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  // appear in search-history container
+  console.log(searchHistory);
+}
+
 //Daniel - this needs to be called in the 'ingredient search button' click handler
 //showCocktails(ingredientName);
 
@@ -67,16 +76,19 @@ async function showCocktails(ingredientName) {
     //   return <THE RESULTS>;
 
 // Attach click event handlers for the GO buttons
-recipeSearchBtn.addEventListener('click', function() {
+recipeSearchBtn.addEventListener('click', function(event) {
   var recipeSearchText = document.querySelector('.recipe-search-input');
 
-  showRecipes(recipeSearchText.value);
+  showRecipes(recipeSearchText.value); 
+    saveAndDisplayHistory(recipeSearchText.value);
+    event.preventDefault();
 });
 
-ingredientSearchBtn.addEventListener('click', function() {
-  var ingredientSearchText = document.querySelector('.ingredient-search-input');
+cocktailSearchBtn.addEventListener('click', function(event) {
+  var cocktailSearchText = document.querySelector('.cocktail-search-input');
   
-  showCocktails(ingredientSearchText.value);
+  showCocktails(cocktailSearchText.value);
+    event.preventDefault();
 });
 
 // Prerequisite:
@@ -124,6 +136,8 @@ async function showRecipes(searchText) {
   recipes = await getRecipesByKeyword(searchText);
 //     console.log(recipes);
   // TODO: loop through the entire recipes array
+const searchResultsDiv = document.querySelector('.results-container');
+
   for (var i = 0; i < recipes.length; i++) {
     recipe = recipes[i];
     cardDiv = document.createElement('div'); // <div></div>
@@ -152,7 +166,7 @@ async function showRecipes(searchText) {
     recipeURL.textContent = "Click here"; // recipeURL is now <a href="sourceUrl" class="recipe-url">Click here</a> 
     // recipeURL = <a href="whatever" class="recipe-url">Click here</a> 
     recipeText = document.createElement('span');
-    recipeText.classlist.add('recipe-link-text');
+    recipeText.classList.add('recipe-link-text');
     recipeText.textContent = " to see recipe";
     // Are we done?  Nope, not so fast.  It's time
     // to re-unite the children with their parents

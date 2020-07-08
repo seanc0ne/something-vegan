@@ -129,23 +129,23 @@ header h1 {
   display: block;
   width: 100%;
 }
-.container > .row .left-col .search-result-container {
+.container > .row .left-col .search-history {
   margin: 20px 10px;
 }
-.container > .row .left-col .search-result-container ul {
+.container > .row .left-col .search-history ul {
   background-color: #fff;
   border: 1px solid #777;
   border-radius: 5px;
 }
-.container > .row .left-col .search-result-container ul li {
+.container > .row .left-col .search-history ul li {
   padding: 10px 15px;
   border-bottom: 1px solid #777;
   transition: 0.3s all ease;
 }
-.container > .row .left-col .search-result-container ul li:last-child {
+.container > .row .left-col .search-history ul li:last-child {
   border: none;
 }
-.container > .row .left-col .search-result-container ul li:hover {
+.container > .row .left-col .search-history ul li:hover {
   cursor: pointer;
   background-color: #ddd;
 }

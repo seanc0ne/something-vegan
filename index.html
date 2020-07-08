@@ -1,90 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Something Vegan</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
-
+    <title>Vegan Restaurant Search</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">Something Vegan</a>
 
-    </nav>
+<header>
+    <div class="container">
+        <h1>Something Vegan</h1>
+    </div>
+</header>
+
+<div class="container">
     <div class="row">
-
-        <div class="col-4">
-            <div class="card" id="searchOne" style="width: 18rem;">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2 search-input" type="search" placeholder="Recipe Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 search-button" type="submit">Search</button>
-                </form>
-                <ul class="list-group list-group-flush search-history-list">
-                </ul>
-                <button id="clear">Clear</button>
+        <div class="left-col">
+            <div class="search-container">
+                <div class="recipe-search search">
+                    <div class="form-container">
+                        <form action="#" method="post">
+                            <div class="top-sec">
+                                <input type="text" name="recipeSearch" id="recipeSearch" placeholder="Recipe Search">
+                                <button type="submit">Search</button>
+                            </div>
+                            <button type="reset">Clear</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="restaurant-search search">
+                    <div class="form-container">
+                        <form action="#" method="post">
+                            <div class="top-sec">
+                                <input type="text" name="restaurantSearch" id="restaurantSearch" placeholder="Cocktail Search">
+                                <button type="submit">Search</button>
+                            </div>
+                            <button type="reset">Clear</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card" id="searchTwo" style="width: 18rem;" padding>
-                <form class="form-inline">
-
-                    <input class="form-control mr-sm-2 search-input" type="search" placeholder="Restaurant Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 search-button" type="submit">Search</button>
-                </form>
-                <ul class="list-group list-group-flush search-history-list-2">
+            <div class="search-result-container">
+                <ul>
+                    <li>Result</li>
+                    <li>Result</li>
+                    <li>Result</li>
+                    <li>Result</li>
+                    <li>Result</li>
+                    <li>Result</li>
+                    <li>Result</li>
                 </ul>
-                <button id="clear2">Clear</button>
             </div>
-
         </div>
-
-        <div class="col-8">
-
-            <h1> Search Results</h1>
-            <div class="row" id="searchResults">
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
+        <div class="right-col">
+            <div class="results-container">
+                <div class="title">Search Result</div>
+                <div class="result-sec">
+                    <ul>
+                        <li>
+                            <a href="#" target="_blank">
+                                <figure>
+                                    <img src="./assets/img/07052019003217-1557189137.jpg" alt="...">
+                                </figure>
+                                <div class="text-sec">
+                                    <div class="heading">Primary card title</div>
+                                    <p class="text">Some quick example text to build on the card title and make up the bulk of the card's content</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <figure>
+                                    <img src="./assets/img/07052019003217-1557189137.jpg" alt="...">
+                                </figure>
+                                <div class="text-sec">
+                                    <div class="heading">Primary card title</div>
+                                    <p class="text">Some quick example text to build on the card title and make up the bulk of the card's content</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <figure>
+                                    <img src="./assets/img/07052019003217-1557189137.jpg" alt="...">
+                                </figure>
+                                <div class="text-sec">
+                                    <div class="heading">Primary card title</div>
+                                    <p class="text">Some quick example text to build on the card title and make up the bulk of the card's content</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <figure>
+                                    <img src="./assets/img/07052019003217-1557189137.jpg" alt="...">
+                                </figure>
+                                <div class="text-sec">
+                                    <div class="heading">Primary card title</div>
+                                    <p class="text">Some quick example text to build on the card title and make up the bulk of the card's content</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <figure>
+                                    <img src="./assets/img/07052019003217-1557189137.jpg" alt="...">
+                                </figure>
+                                <div class="text-sec">
+                                    <div class="heading">Primary card title</div>
+                                    <p class="text">Some quick example text to build on the card title and make up the bulk of the card's content</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <figure>
+                                    <img src="./assets/img/07052019003217-1557189137.jpg" alt="...">
+                                </figure>
+                                <div class="text-sec">
+                                    <div class="heading">Primary card title</div>
+                                    <p class="text">Some quick example text to build on the card title and make up the bulk of the card's content</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
         </div>
     </div>
-</body>
+</div>
 
+</body>
 </html>

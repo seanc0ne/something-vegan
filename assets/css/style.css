@@ -211,4 +211,21 @@ header h1 {
   line-height: 22px;
 }
 
+.recipe-card {
+  max-width: 18rem;
+}
+.recipe-image {
+  max-width: 200px;
+}
+.recipe-link {
+
+}
+
+.recipe-url {
+
+}
+
+.recipe-text {
+  
+}
 /*# sourceMappingURL=style.css.map */

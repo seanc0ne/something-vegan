@@ -15,6 +15,7 @@ var recipes = [];
 var cocktails = [];
 var recipeSearchBtn = document.querySelector('.recipe-search-btn');
 var cocktailSearchBtn = document.querySelector('.cocktail-search-btn');
+let searchHistory = [];
 
 
 async function getRecipesByKeyword(searchText) {
@@ -31,11 +32,7 @@ async function getRecipesByKeyword(searchText) {
 async function showRecipes(searchText) {
     recipes = await getRecipesByKeyword(searchText);
 //    console.log(recipes);
-
 }
-
-//Daniel - this needs to be called in the 'recipe search button' click handler
-//showRecipes(searchText);
 
 var ingredientName = "tequila" // testing eliminate and substitute for the input
 
@@ -59,13 +56,34 @@ async function showCocktails(ingredientName) {
     console.log(cocktails);
 }
 
-function saveAndDisplayHistory(searchTerm) {
+function loadSearchHistory() {
+  searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+}
+
+function saveSearchHistory(searchTerm) {
   // save to localStorage
-  let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
   searchHistory.push(searchTerm);
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
   // appear in search-history container
   console.log(searchHistory);
+}
+
+function displaySearchHistory() {
+  // reference to container
+  let searchHistoryContainer = document.querySelector('.search-history');
+  let ulContainer = document.createElement('ul');
+  let liContainer;
+  let searchList = searchHistory;
+
+  searchHistoryContainer.innerHTML = '';
+  searchList.reverse();
+
+  for (let i = 0; i < searchList.length; i++) {
+    liContainer = document.createElement('li');
+    liContainer.textContent = searchList[i];
+    ulContainer.appendChild(liContainer);
+  }
+  searchHistoryContainer.appendChild(ulContainer);
 }
 
 //Daniel - this needs to be called in the 'ingredient search button' click handler
@@ -74,23 +92,6 @@ function saveAndDisplayHistory(searchTerm) {
     // TODO: call fetch()
     // TODO: Return the array of restaurant objects from the server response
     //   return <THE RESULTS>;
-
-// Attach click event handlers for the GO buttons
-recipeSearchBtn.addEventListener('click', function(event) {
-  var recipeSearchText = document.querySelector('.recipe-search-input');
-
-  showRecipes(recipeSearchText.value); 
-    saveAndDisplayHistory(recipeSearchText.value);
-    event.preventDefault();
-});
-
-cocktailSearchBtn.addEventListener('click', function(event) {
-  var cocktailSearchText = document.querySelector('.cocktail-search-input');
-  
-  showCocktails(cocktailSearchText.value);
-    event.preventDefault();
-});
-
 // Prerequisite:
 // - Edit 'style.css' and add a new class called 'recipe-card':
 // .recipe-card {
@@ -136,7 +137,8 @@ async function showRecipes(searchText) {
   recipes = await getRecipesByKeyword(searchText);
 //     console.log(recipes);
   // TODO: loop through the entire recipes array
-const searchResultsDiv = document.querySelector('.results-container');
+  let searchResultsDiv = document.querySelector('.results-container');
+  searchResultsDiv.innerHTML = '';
 
   for (var i = 0; i < recipes.length; i++) {
     recipe = recipes[i];
@@ -199,3 +201,28 @@ const searchResultsDiv = document.querySelector('.results-container');
     searchResultsDiv.appendChild(cardDiv); // We have inserted our first card
   }
 }
+
+function initialize() {
+  // check localStorage for search history data
+  // add the click event listeners to buttons (recipes and cocktails)
+  recipeSearchBtn.addEventListener('click', function(event) {
+    var recipeSearchText = document.querySelector('.recipe-search-input');
+
+    event.preventDefault();
+    showRecipes(recipeSearchText.value); 
+    saveSearchHistory(recipeSearchText.value);
+    displaySearchHistory();
+
+  });
+  
+  cocktailSearchBtn.addEventListener('click', function(event) {
+    var cocktailSearchText = document.querySelector('.cocktail-search-input');
+    
+    showCocktails(cocktailSearchText.value);
+      event.preventDefault();
+  });
+  // render search history
+  displaySearchHistory();
+}
+
+initialize();

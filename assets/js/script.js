@@ -29,11 +29,6 @@ async function getRecipesByKeyword(searchText) {
     return data.results;
 }
 
-async function showRecipes(searchText) {
-    recipes = await getRecipesByKeyword(searchText);
-//    console.log(recipes);
-}
-
 var ingredientName = "tequila" // testing eliminate and substitute for the input
 
 async function getCocktailsByIngredient(ingredientName) {
@@ -135,6 +130,7 @@ async function showRecipes(searchText) {
   var recipe; // variable for a single recipe
   // Get recipes and assign to recipes array
   recipes = await getRecipesByKeyword(searchText);
+  console.log(recipes);
 //     console.log(recipes);
   // TODO: loop through the entire recipes array
   let searchResultsDiv = document.querySelector('.results-container');
@@ -159,7 +155,7 @@ async function showRecipes(searchText) {
     // and a link to the actual recipe
     recipeImage = document.createElement('img');
     recipeImage.classList.add('recipe-image'); // <img src="" class="recipe-image" />
-    recipeImage.src = recipe.image;
+    recipeImage.src = 'https://spoonacular.com/recipeImages/' + recipe.image;
     recipeLink = document.createElement('div'); // recipeLink = <div></div>
     recipeLink.classList.add('recipe-link'); // recipeLink = <div class="recipe-link"></div>
     recipeURL = document.createElement('a'); // recipeURL is now  <a></a>

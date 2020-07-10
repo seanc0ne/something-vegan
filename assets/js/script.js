@@ -29,7 +29,7 @@ async function getRecipesByKeyword(searchText) {
     return data.results;
 }
 
-var ingredientName = "tequila" // testing eliminate and substitute for the input
+var ingredientName = "tequila"; // testing eliminate and substitute for the input
 
 async function getCocktailsByIngredient(ingredientName) {
     let apiURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?";

@@ -79,12 +79,12 @@ async function showRecipes(searchText) {
   recipes = await getRecipesByKeyword(searchText);
   console.log(recipes);
 
-  let searchResultsDiv = document.querySelector('.results-container');
+  let searchResultsDiv = document.querySelector('#unorder-list');
   searchResultsDiv.innerHTML = '';
 
   for (var i = 0; i < recipes.length; i++) {
     recipe = recipes[i];
-    cardDiv = document.createElement('div');
+    cardDiv = document.createElement('li');
     cardDiv.classList.add('card');
     cardDiv.classList.add('text-white');
     cardDiv.classList.add('bg-primary');
@@ -163,12 +163,12 @@ async function showCocktails(ingredientName) {
   cocktails = await getCocktailsByIngredient(ingredientName);
   console.log(cocktails);
 
-  let searchResultsDiv = document.querySelector('.results-container');
+  let searchResultsDiv = document.querySelector('#unorder-list');
   searchResultsDiv.innerHTML = '';
 
   for (var i = 0; i < cocktails.length; i++) {
     cocktail = cocktails[i];
-    cardDiv = document.createElement('div');
+    cardDiv = document.createElement('li');
     cardDiv.classList.add('card');
     cardDiv.classList.add('text-white');
     cardDiv.classList.add('bg-primary');

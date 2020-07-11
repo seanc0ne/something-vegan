@@ -188,7 +188,7 @@ async function showCocktails(ingredientName) {
     cocktailImage = document.createElement('img');
     cocktailImage.classList.add('recipe-image'); 
 
-    cocktailImage.src = 'https://www.thecocktaildb.com/images/media/drink' + cocktail.image;
+    cocktailImage.src = cocktail.strDrinkThumb;
 
     cocktailLink = document.createElement('div'); 
     cocktailLink.classList.add('recipe-link'); 
@@ -197,11 +197,9 @@ async function showCocktails(ingredientName) {
     cocktailURL.classList.add('recipe-url');
     cocktailURL.href = cocktail.sourceUrl; 
 
-    cocktailURL.textContent = "Click here"; 
-
     cocktailText = document.createElement('span');
     cocktailText.classList.add('recipe-link-text');
-    cocktailText.textContent = " to see recipe";
+    cocktailText.textContent = cocktail.strDrink;
 
     cocktailLink.appendChild(cocktailURL);
     cocktailLink.appendChild(cocktailText);

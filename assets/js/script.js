@@ -40,9 +40,13 @@ function loadSearchHistory() {
   searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
 }
 
-function saveSearchHistory(searchTerm) {
-  
-  searchHistory.push(searchTerm);
+function saveSearchHistory(searchTerm, searchType) {
+  let searchObject = {
+    term : searchTerm,
+    type : searchType,
+  };
+
+  searchHistory.push(searchObject);
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
   console.log(searchHistory);
@@ -54,13 +58,25 @@ function displaySearchHistory() {
   let ulContainer = document.createElement('ul');
   let liContainer;
   let searchList = searchHistory;
+  let maxSearchLength = (searchList.length > 8) ? 8 : searchList.length;
+  let searchObject; 
 
   searchHistoryContainer.innerHTML = '';
-  searchList.reverse();
+  // searchList.reverse();
 
-  for (let i = 0; i < searchList.length; i++) {
+  for (let i = 0; i < maxSearchLength; i++) {
+    searchObject = searchList[i];
     liContainer = document.createElement('li');
-    liContainer.textContent = searchList[i];
+    liContainer.dataset.searchType = searchObject.type;
+    liContainer.textContent = searchObject.term;
+    liContainer.addEventListener('click', function(event) {
+      let type = this.dataset.searchType;
+      if (type === 'cocktail') {
+        showCocktails(searchObject.term);
+      } else {
+        showRecipes(searchObject.term);
+      }
+    });
     ulContainer.appendChild(liContainer);
   }
   searchHistoryContainer.appendChild(ulContainer);
@@ -134,7 +150,7 @@ function initialize() {
 
     event.preventDefault();
     showRecipes(recipeSearchText.value); 
-    saveSearchHistory(recipeSearchText.value);
+    saveSearchHistory(recipeSearchText.value, 'recipe');
     displaySearchHistory();
 
   });
@@ -142,8 +158,10 @@ function initialize() {
   cocktailSearchBtn.addEventListener('click', function(event) {
     var cocktailSearchText = document.querySelector('.cocktail-search-input');
     
+    event.preventDefault();
     showCocktails(cocktailSearchText.value);
-      event.preventDefault();
+    saveSearchHistory(cocktailSearchText.value, 'cocktail');
+    displaySearchHistory();
   });
   
   displaySearchHistory();

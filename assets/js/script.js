@@ -36,9 +36,12 @@ function loadSearchHistory(searchType) {
 
   if (searchType === 'recipe') {
     recipeSearchHistory = JSON.parse(localStorage.getItem(searchKey) || '[]');
+    return recipeSearchHistory;
   } else {
     cocktailSearchHistory = JSON.parse(localStorage.getItem(searchKey) || '[]');
+    return cocktailSearchHistory;
   }
+
 }
 
 function saveSearchHistory(searchTerm, searchType) {
@@ -63,7 +66,7 @@ function displaySearchHistory(searchType) {
     document.querySelector('.recipe-search-history');
   let ulContainer = document.createElement('ul');
   let liContainer;
-  let searchList = searchType === 'recipe' ? recipeSearchHistory : cocktailSearchHistory;
+  let searchList = loadSearchHistory(searchType);
   let maxSearchLength = (searchList.length > 4) ? 4 : searchList.length;
   let searchObject; 
 
@@ -170,7 +173,8 @@ function initialize() {
     displaySearchHistory('cocktail');
   });
   
-  displaySearchHistory();
+  displaySearchHistory('recipe');
+  displaySearchHistory('cocktail');
 }
 
 async function showCocktails(ingredientName) {

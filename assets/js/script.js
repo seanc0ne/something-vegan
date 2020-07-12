@@ -1,32 +1,26 @@
-var searchText = "quinoa"; // testing eliminate and substitute for the input
-
 const API_KEY = "ed7605a56f0f435ab0d285c4b6650cf0 ";
 var recipes = [];
 var cocktails = [];
 var recipeSearchBtn = document.querySelector('.recipe-search-btn');
 var cocktailSearchBtn = document.querySelector('.cocktail-search-btn');
-let searchHistory = [];
-
+let recipeSearchHistory = [];
+let cocktailSearchHistory = [];
 
 async function getRecipesByKeyword(searchText) {
     let apiURL = "https://api.spoonacular.com/recipes/search?";
     let queryString = "query=" + searchText + "&number=6&diet=vegan&apiKey=" + API_KEY;
     // Combined apiURL and queryString
     apiURL = apiURL + queryString;
-    console.log(apiURL);
     let response = await fetch(apiURL);
     let data = await response.json();
     return data.results;
 }
-
-var ingredientName = "tequila"; // testing eliminate and substitute for the input
 
 async function getCocktailsByIngredient(ingredientName) {
     let apiURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?";
     let queryString = "i=" + ingredientName + "&number=6";
   
     apiURL = apiURL + queryString;
-    console.log(apiURL);
     let response = await fetch(apiURL);
     let data = await response.json();
     let result = [];
@@ -36,8 +30,15 @@ async function getCocktailsByIngredient(ingredientName) {
     return result;
 }
 
-function loadSearchHistory() {
-  searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+function loadSearchHistory(searchType) {
+  let searchKey = searchType === 'recipe' ? 'recipeSearchHistory' : 'cocktailSearchHistory';
+  let searchTypeHistory = searchType === 'recipe' ? recipeSearchHistory : cocktailSearchHistory;
+
+  if (searchType === 'recipe') {
+    recipeSearchHistory = JSON.parse(localStorage.getItem(searchKey) || '[]');
+  } else {
+    cocktailSearchHistory = JSON.parse(localStorage.getItem(searchKey) || '[]');
+  }
 }
 
 function saveSearchHistory(searchTerm, searchType) {
@@ -46,23 +47,28 @@ function saveSearchHistory(searchTerm, searchType) {
     type : searchType,
   };
 
-  searchHistory.push(searchObject);
-  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-
-  console.log(searchHistory);
+  if (searchType === 'recipe') {
+    recipeSearchHistory.push(searchObject);
+    localStorage.setItem('recipeSearchHistory', JSON.stringify(recipeSearchHistory));
+  } else {
+    cocktailSearchHistory.push(searchObject);
+    localStorage.setItem('cocktailSearchHistory', JSON.stringify(cocktailSearchHistory));
+  }
 }
 
-function displaySearchHistory() {
+function displaySearchHistory(searchType) {
 
-  let searchHistoryContainer = document.querySelector('.search-history');
+  let searchHistoryContainer = searchType === 'cocktail' ?
+    document.querySelector('.cocktail-search-history') : 
+    document.querySelector('.recipe-search-history');
   let ulContainer = document.createElement('ul');
   let liContainer;
-  let searchList = searchHistory;
-  let maxSearchLength = (searchList.length > 8) ? 8 : searchList.length;
+  let searchList = searchType === 'recipe' ? recipeSearchHistory : cocktailSearchHistory;
+  let maxSearchLength = (searchList.length > 4) ? 4 : searchList.length;
   let searchObject; 
 
   searchHistoryContainer.innerHTML = '';
-  // searchList.reverse();
+  searchList.reverse();
 
   for (let i = 0; i < maxSearchLength; i++) {
     searchObject = searchList[i];
@@ -70,11 +76,11 @@ function displaySearchHistory() {
     liContainer.dataset.searchType = searchObject.type;
     liContainer.textContent = searchObject.term;
     liContainer.addEventListener('click', function(event) {
-      let type = this.dataset.searchType;
+      let type = event.target.dataset.searchType;
       if (type === 'cocktail') {
-        showCocktails(searchObject.term);
+        showCocktails(event.target.textContent);
       } else {
-        showRecipes(searchObject.term);
+        showRecipes(event.target.textContent);
       }
     });
     ulContainer.appendChild(liContainer);
@@ -92,10 +98,10 @@ async function showRecipes(searchText) {
   var recipeURL;
   var recipeText;
   var recipe; 
-  recipes = await getRecipesByKeyword(searchText);
-  console.log(recipes);
-
   let searchResultsDiv = document.querySelector('#unorder-list');
+
+  recipes = await getRecipesByKeyword(searchText);
+
   searchResultsDiv.innerHTML = '';
 
   for (var i = 0; i < recipes.length; i++) {
@@ -151,7 +157,7 @@ function initialize() {
     event.preventDefault();
     showRecipes(recipeSearchText.value); 
     saveSearchHistory(recipeSearchText.value, 'recipe');
-    displaySearchHistory();
+    displaySearchHistory('recipe');
 
   });
   
@@ -161,7 +167,7 @@ function initialize() {
     event.preventDefault();
     showCocktails(cocktailSearchText.value);
     saveSearchHistory(cocktailSearchText.value, 'cocktail');
-    displaySearchHistory();
+    displaySearchHistory('cocktail');
   });
   
   displaySearchHistory();
@@ -179,7 +185,6 @@ async function showCocktails(ingredientName) {
   var cocktail;
 
   cocktails = await getCocktailsByIngredient(ingredientName);
-  console.log(cocktails);
 
   let searchResultsDiv = document.querySelector('#unorder-list');
   searchResultsDiv.innerHTML = '';

@@ -3,8 +3,6 @@ var recipes = [];
 var cocktails = [];
 var recipeSearchBtn = document.querySelector('.recipe-search-btn');
 var cocktailSearchBtn = document.querySelector('.cocktail-search-btn');
-let recipeSearchHistory = [];
-let cocktailSearchHistory = [];
 
 async function getRecipesByKeyword(searchText) {
     let apiURL = "https://api.spoonacular.com/recipes/search?";
@@ -31,17 +29,8 @@ async function getCocktailsByIngredient(ingredientName) {
 }
 
 function loadSearchHistory(searchType) {
-  let searchKey = searchType === 'recipe' ? 'recipeSearchHistory' : 'cocktailSearchHistory';
-  let searchTypeHistory = searchType === 'recipe' ? recipeSearchHistory : cocktailSearchHistory;
 
-  if (searchType === 'recipe') {
-    recipeSearchHistory = JSON.parse(localStorage.getItem(searchKey) || '[]');
-    return recipeSearchHistory;
-  } else {
-    cocktailSearchHistory = JSON.parse(localStorage.getItem(searchKey) || '[]');
-    return cocktailSearchHistory;
-  }
-
+  return JSON.parse(localStorage.getItem(searchType) || '[]');
 }
 
 function saveSearchHistory(searchTerm, searchType) {
@@ -50,13 +39,9 @@ function saveSearchHistory(searchTerm, searchType) {
     type : searchType,
   };
 
-  if (searchType === 'recipe') {
-    recipeSearchHistory.push(searchObject);
-    localStorage.setItem('recipeSearchHistory', JSON.stringify(recipeSearchHistory));
-  } else {
-    cocktailSearchHistory.push(searchObject);
-    localStorage.setItem('cocktailSearchHistory', JSON.stringify(cocktailSearchHistory));
-  }
+  let pullSearchHistory = loadSearchHistory(searchType);
+  pullSearchHistory.push(searchObject);
+  localStorage.setItem(searchType, JSON.stringify(pullSearchHistory));
 }
 
 function displaySearchHistory(searchType) {
